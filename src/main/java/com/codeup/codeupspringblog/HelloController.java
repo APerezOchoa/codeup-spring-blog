@@ -11,7 +11,7 @@ public class HelloController {
         return "Hello, World!";
     }
 
-    //GetMapping is the more short-handed version and RequestMapping is the longer
+    //GetMapping is the more short-git handed version and RequestMapping is the longer
     @GetMapping("/hello/{name}")
     @ResponseBody
     public String sayHello(@PathVariable String name) {
