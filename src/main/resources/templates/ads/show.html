@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:By="http://www.w3.org/1999/xhtml">
+<head th:replace="partials :: head ('Viewing an Ad')">
+    <title>Prolonged Fart Noises</title>
+</head>
+<body>
+  <h1 th:text="${ad.title}"></h1>
+  <h2>By: <span th:text="${ad.userId}"></span></h2>
+  <p th:text="${ad.description}"></p>
+
+  <ul>
+    <li th:each="category : ${ad.categories}" th:text="${category}"></li>
+  </ul>
+  <div th:if="${userIsCreator}">
+    <button>Edit Ad</button>
+    <button>Delete Ad</button>
+  </div>
+</body>
+</html>
