@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials :: head ('Roll Guess')">
+</head>
+<body  class="main-container main-bg">
+    <nav th:replace="partials :: navbar"></nav>
+
+    <div class="container" id="content">
+        <h3>Let's roll the dice. Pick a number to see if you get lucky.</h3>
+        <a href="/roll-dice/1">1</a>
+        <a href="/roll-dice/2">2</a>
+        <a href="/roll-dice/3">3</a>
+        <a href="/roll-dice/4">4</a>
+        <a href="/roll-dice/5">5</a>
+        <a href="/roll-dice/6">6</a>
+    </div>
+
+    <footer th:replace="partials :: footer"></footer>
+    <div th:replace="partials :: boot-scripts"></div>
+</body>
+</html>

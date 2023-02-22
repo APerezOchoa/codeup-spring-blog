@@ -1,3 +1,25 @@
-body{
-    background: peru;
+html {
+    height: 100%;
+}
+
+body {
+    background: grey;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+#content {
+    background-color: lightgrey;
+    flex: 1;
+    padding: 15px;
+}
+
+#footer {
+    background-color: #222529;
+    padding: 7px;
+}
+
+#footer-content{
+    color: white;
 }

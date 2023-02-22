@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials :: head ('Roll Result')">
+</head>
+<body>
+    <nav th:replace="partials :: navbar"></nav>
+
+    <div class="container" id="content">
+        <div class="win" th:if="${result} == ${n}">
+            <h3>Great Luck! You guessed <span th:text="${n}"></span> correctly!</h3>
+        </div>
+        <div class="lose" th:if="${result} != ${n}">
+            <h3>You guessed <span th:text="${n}"></span> but rolled a <span th:text="${result}"></span>. Better luck next time!</h3>
+        </div>
+    </div>
+
+    <footer th:replace="partials :: footer"></footer>
+    <div th:replace="partials :: boot-scripts"></div>
+</body>
+</html>

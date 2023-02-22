@@ -3,9 +3,42 @@
 <head th:fragment="head (title)">
     <meta charset="UTF-8">
     <title th:text="${title}"></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=IBM+Plex+Serif&family=Inter&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
 </head>
 <body>
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">That's what they said!</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/roll-dice">Roll Dice</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts">All Posts</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <footer th:fragment="footer" class="footer-bg d-flex justify-content-between align-items-center mt-auto" id="footer">
+        <p id="footer-content">Just a generic footer. All rights reserved and what not.</p>
+    </footer>
+
+    <div th:fragment="boot-scripts">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+                integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+                integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+                crossorigin="anonymous"></script>
+    </div>
 
 </body>
 </html>
