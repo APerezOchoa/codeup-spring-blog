@@ -4,16 +4,18 @@
     <title>Prolonged Fart Noises</title>
 </head>
 <body>
+  <nav th:replace="partials :: navbar"></nav>
+
   <h1 th:text="${ad.title}"></h1>
   <h2>By: <span th:text="${ad.userId}"></span></h2>
   <p th:text="${ad.description}"></p>
 
-  <ul>
-    <li th:each="category : ${ad.categories}" th:text="${category}"></li>
-  </ul>
   <div th:if="${userIsCreator}">
     <button>Edit Ad</button>
     <button>Delete Ad</button>
   </div>
+
+  <footer th:replace="partials :: footer"></footer>
+  <div th:replace="partials :: boot-scripts"></div>
 </body>
 </html>

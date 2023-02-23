@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{partials :: head ('Viewing all Ads')}">
+  <title>Prolonged Fart Noises</title>
+</head>
+<body class="main-bg main-container">
+<nav th:replace="~{partials :: navbar}"></nav>
+<main class="container">
+  <div th:each="ad : ${ads}">
+    <a th:href="@{/ads/{id} (id = ${ad.id})}"><h1 th:text="${ad.title}"></h1></a>
+    <p th:text="${ad.description}"></p>
+  </div>
+</main>
+<footer th:replace="~{partials :: footer}"></footer>
+<div th:replace="~{partials :: boot-scripts}"></div>
+</body>
+</html>

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
-    <title>Home</title>
+<head th:replace="partials :: head ('Home Page')">
 </head>
-<body>
+<body  class="main-container main-bg">
+    <nav th:replace="partials :: navbar"></nav>
 
-<h1>This is the home page</h1>
+    <h1>Welcome to the home page!</h1>
 
+    <footer th:replace="partials :: footer"></footer>
+    <div th:replace="partials :: boot-scripts"></div>
 </body>
 </html>
