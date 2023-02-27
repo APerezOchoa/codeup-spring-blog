@@ -12,14 +12,14 @@ body {
 #content {
     background-color: lightgrey;
     flex: 1;
-    padding: 15px;
+    padding: 2rem;
 }
 
 #footer {
     background-color: #222529;
-    padding: 7px;
+    padding: 10px;
 }
 
 #footer-content{
-    color: white;
+    color: #9B9D9E;
 }
