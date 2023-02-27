@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials :: head ('Create Page')">
+<head th:replace="partials :: head ('Create Ad')">
 </head>
 <body class="main-bg main-container">
   <nav th:replace="partials :: navbar"></nav>
 
   <div class="container" id="content">
-    <form action="/posts/create" method="post">
+    <form action="/ads/create" method="post">
       <div class="mb-3 mx-3">
         <label for="title" class="form-label">Title</label>
         <input name="title" type="text" class="form-control" id="title" placeholder="What's your title?">
       </div>
       <div class="mb-3 mx-3">
         <label for="description" class="form-label">Description</label>
-        <textarea name="description" class="form-control" id="description" rows="3" placeholder="Write your post."></textarea>
+        <textarea name="description" class="form-control" id="description" rows="3" placeholder="Write your ad."></textarea>
       </div>
       <div class="mb-3 mx-3">
-      <button type="submit" class="btn btn-primary">Create Post</button>
+        <button type="submit" class="btn btn-primary">Submit Ad</button>
       </div>
     </form>
   </div>

@@ -8,6 +8,7 @@
     <div class="container" id="content">
         <h3 th:text="${post.title}"></h3>
         <p th:text="${post.description}"></p>
+        <h5>By: <span th:text="${post.user.email}"></span></h5>
     </div>
 
     <footer th:replace="partials :: footer"></footer>

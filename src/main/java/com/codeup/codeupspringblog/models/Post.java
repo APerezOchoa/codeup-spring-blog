@@ -2,6 +2,8 @@ package com.codeup.codeupspringblog.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "posts")
 public class Post {
@@ -12,23 +14,32 @@ public class Post {
     private String title;
     @Column(nullable = false)
     private String description;
-    @Column(nullable = false) //userId can't be null
-    private int userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "posts_categories",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id")}
+    )
+    private List<Category> categories;
 
     public Post() {
     }
 
-    public Post(long id, String title, String description, int userId) {
+    public Post(String title, String description, User user) {
+        this.title = title;
+        this.description = description;
+        this.user = user;
+    }
+
+    public Post(long id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.userId = userId;
-    }
-
-    public Post(String title, String description, int userId) {
-        this.title = title;
-        this.description = description;
-        this.userId = userId;
     }
 
     public Post(String title, String description) {
@@ -60,12 +71,19 @@ public class Post {
         this.description = description;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
 }

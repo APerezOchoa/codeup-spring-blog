@@ -1,21 +1,25 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.models.Ad;
+import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.AdRepository;
+import com.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.ArrayList;
 
 @Controller
 public class AdController {
 
+    private final UserRepository userDao;
+
     private final AdRepository adDao;
 
-    public AdController(AdRepository adDao) {
+    public AdController(UserRepository userDao, AdRepository adDao) {
+        this.userDao = userDao;
         this.adDao = adDao;
     }
 
@@ -38,4 +42,15 @@ public class AdController {
         return "ads/show";
     }
 
+    @GetMapping("/ads/create")
+    public String showAdForm(){
+        return "ads/create";
+    }
+    @PostMapping("/ads/create")
+    public String saveNewAd(@RequestParam(name = "title")String title, @RequestParam(name = "description")String description){
+        User user = userDao.findUserById(1);
+        Ad ad = new Ad(title, description, user);
+        adDao.save(ad);
+        return "redirect:/ads";
+    }
 }
