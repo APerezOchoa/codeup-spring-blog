@@ -48,8 +48,8 @@ public class PostController {
 
     @GetMapping("/posts/{id}/edit")
     public String editPostForm(Model model, @PathVariable long id){
-        model.addAttribute("ad", postDao.findPostById(id));
-        return "ads/create";
+        model.addAttribute("post", postDao.findPostById(id));
+        return "posts/create";
     }
 
 }
