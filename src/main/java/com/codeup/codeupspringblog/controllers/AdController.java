@@ -6,10 +6,7 @@ import com.codeup.codeupspringblog.repositories.AdRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AdController {
@@ -38,19 +35,26 @@ public class AdController {
     @GetMapping("/ads/{id}")
     public String getOneAd(@PathVariable long id, Model model){
         model.addAttribute("ad", adDao.findAdById(id));
-        model.addAttribute("userIsCreator", true);
         return "ads/show";
     }
 
     @GetMapping("/ads/create")
-    public String showAdForm(){
+    public String showAdForm(Model model){
+        model.addAttribute("ad", new Ad());
         return "ads/create";
     }
-    @PostMapping("/ads/create")
-    public String saveNewAd(@RequestParam(name = "title")String title, @RequestParam(name = "description")String description){
+    @PostMapping("/ads/save")
+    public String saveNewAd(@ModelAttribute Ad ad){
         User user = userDao.findUserById(1);
-        Ad ad = new Ad(title, description, user);
+        ad.setUser(user);
         adDao.save(ad);
         return "redirect:/ads";
     }
+
+    @GetMapping("/ads/{id}/edit")
+    public String editAdForm(Model model, @PathVariable long id){
+        model.addAttribute("ad", adDao.findAdById(id));
+        return "ads/create";
+    }
+
 }

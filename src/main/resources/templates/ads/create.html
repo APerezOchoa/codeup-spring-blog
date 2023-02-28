@@ -6,15 +6,16 @@
   <nav th:replace="partials :: navbar"></nav>
 
   <div class="container" id="content">
-    <form action="/ads/create" method="post">
+    <form th:action="@{/ads/save}" th:method="post" th:object="${ad}">
       <div class="mb-3 mx-3">
         <label for="title" class="form-label">Title</label>
-        <input name="title" type="text" class="form-control" id="title" placeholder="What's your title?">
+        <input type="text" name="title" id="title" th:field="*{title}" class="form-control"  placeholder="What's your title?">
       </div>
       <div class="mb-3 mx-3">
         <label for="description" class="form-label">Description</label>
-        <textarea name="description" class="form-control" id="description" rows="3" placeholder="Write your ad."></textarea>
+        <textarea name="description" id="description" th:field="*{description}" class="form-control"  rows="3" placeholder="Write your ad."></textarea>
       </div>
+      <input type="hidden" th:field="*{id}">
       <div class="mb-3 mx-3">
         <button type="submit" class="btn btn-primary">Create Ad</button>
       </div>
