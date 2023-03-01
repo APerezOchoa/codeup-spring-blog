@@ -5,6 +5,7 @@ import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.AdRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import com.codeup.codeupspringblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,15 +48,20 @@ public class AdController {
     }
     @PostMapping("/ads/save")
     public String saveNewAd(@ModelAttribute Ad ad){
-        User user = userDao.findUserById(1);
-        ad.setUser(user);
-        adDao.save(ad);
-        emailService.prepareAndSend(ad);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Ad origAd = adDao.findAdById(ad.getId());
+        if(user.getId() == origAd.getUser().getId()){
+            ad.setUser(user);
+            adDao.save(ad);
+            emailService.prepareAndSend(ad);
+        }
         return "redirect:/ads";
     }
 
     @GetMapping("/ads/{id}/edit")
     public String editAdForm(Model model, @PathVariable long id){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         model.addAttribute("ad", adDao.findAdById(id));
         return "ads/create";
     }

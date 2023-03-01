@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head (title)">
     <meta charset="UTF-8">
     <title th:text="${title}"></title>
@@ -23,16 +23,25 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/posts">All Posts</a>
                     </li>
-                    <li class="nav-item">
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
                         <a class="nav-link" href="/posts/create">Create Post</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/ads">All Ads</a>
                     </li>
-                    <li class="nav-item">
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
                         <a class="nav-link" href="/ads/create">Create Ad</a>
                     </li>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item ms-auto">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
                 </ul>
+                <form sec:authorize="isAuthenticated()" class="ms-auto d-flex" th:action="@{/logout}" th:method="POST">
+                    <button class="btn footer-bg" type="submit" id="logout">Logout</button>
+                </form>
             </div>
         </div>
     </nav>
