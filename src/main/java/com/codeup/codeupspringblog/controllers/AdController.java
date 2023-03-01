@@ -4,6 +4,7 @@ import com.codeup.codeupspringblog.models.Ad;
 import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.AdRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
+import com.codeup.codeupspringblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +13,13 @@ import org.springframework.web.bind.annotation.*;
 public class AdController {
 
     private final UserRepository userDao;
-
     private final AdRepository adDao;
+    private final EmailService emailService;
 
-    public AdController(UserRepository userDao, AdRepository adDao) {
+    public AdController(UserRepository userDao, AdRepository adDao, EmailService emailService) {
         this.userDao = userDao;
         this.adDao = adDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/ads")
@@ -48,6 +50,7 @@ public class AdController {
         User user = userDao.findUserById(1);
         ad.setUser(user);
         adDao.save(ad);
+        emailService.prepareAndSend(ad);
         return "redirect:/ads";
     }
 
