@@ -6,6 +6,7 @@ import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import com.codeup.codeupspringblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,17 +43,26 @@ public class PostController {
     }
     @PostMapping("/posts/save")
     public String postsCreate(@ModelAttribute Post post){
-        User user = userDao.findUserById(1);
-        post.setUser(user);
-        postDao.save(post);
-        emailService.prepareAndSend(post);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Post origPost = postDao.findPostById(post.getId());
+        if(origPost == null || user.getId() == origPost.getUser().getId()){
+            post.setUser(user);
+            postDao.save(post);
+            emailService.prepareAndSend(post);
+        }
         return "redirect:/posts";
     }
 
     @GetMapping("/posts/{id}/edit")
     public String editPostForm(Model model, @PathVariable long id){
-        model.addAttribute("post", postDao.findPostById(id));
-        return "posts/create";
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Post post = postDao.findPostById(id);
+        if (user.getId() == post.getUser().getId()) {
+            model.addAttribute("post", post);
+            return "posts/create";
+        } else {
+            return "redirect:/posts";
+        }
     }
 
 }

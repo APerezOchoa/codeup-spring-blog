@@ -50,7 +50,7 @@ public class AdController {
     public String saveNewAd(@ModelAttribute Ad ad){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Ad origAd = adDao.findAdById(ad.getId());
-        if(user.getId() == origAd.getUser().getId()){
+        if(origAd == null || user.getId() == origAd.getUser().getId()){
             ad.setUser(user);
             adDao.save(ad);
             emailService.prepareAndSend(ad);
@@ -61,9 +61,13 @@ public class AdController {
     @GetMapping("/ads/{id}/edit")
     public String editAdForm(Model model, @PathVariable long id){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        model.addAttribute("ad", adDao.findAdById(id));
-        return "ads/create";
+        Ad ad = adDao.findAdById(id);
+        if (user.getId() == ad.getUser().getId()) {
+            model.addAttribute("ad", ad);
+            return "ads/create";
+        } else {
+            return "redirect:/ads";
+        }
     }
 
 }
